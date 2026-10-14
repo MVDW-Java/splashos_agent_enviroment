@@ -19,6 +19,15 @@ repositories through symlinks. Read this file before making changes.
   symlinks here.
 - The symlinks are the mechanism that keeps agents sandboxed to exactly the
   repos they need; do not replace them with copies or move them.
+- After a fresh clone, bootstrap the environment with the setup scripts:
+  - `./setup-git.sh` — for each repo: `git clone`s it into `../<repo>` when
+    missing, otherwise `git pull --ff-only` (SourceStream is cloned with
+    `--recursive` for its submodules). Repos default to the
+    `MVDW-SplashOS` GitHub org; pass `name` or `name=url` to override.
+  - `./setup-symlinks.sh` — links `./<name> -> ../<name>` when that directory
+    exists next to this repo, and otherwise prompts for the location. It
+    never overwrites an existing symlink.
+  Typical order: `setup-git.sh` first, then `setup-symlinks.sh`.
 
 ## The toolchain and how the pieces fit
 
